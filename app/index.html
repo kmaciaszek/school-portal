@@ -11,12 +11,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="Menu/navigationBar.css">
+  <link rel="stylesheet/less" href="app.less">
+  <link rel="stylesheet/less" href="NavigationBar/navigationBar.less">
+  <link rel="stylesheet/less" href="Login/login.less">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-<div ng-include="'Menu/menu.html'"></div>
+<div ng-include="'NavigationBar/menu.html'" ng-controller="NavigationBarController"></div>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -30,10 +31,12 @@
   -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/less/dist/less.min.js"></script>
   <script src="app.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
   <script src="Login/LoginController.js"></script>
+  <script src="NavigationBar/NavigationBarController.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
