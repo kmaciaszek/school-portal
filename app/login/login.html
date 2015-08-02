@@ -1,12 +1,16 @@
 <div class="login">
-    <form name="login_form" novalidate role="form"
+    <form name="login_form" class="loginForm" novalidate role="form"
           validate-before-submit="login(login.user, login.password)">
         <span ng-show="login_form.user.$dirty &amp;&amp; login_form.user.$invalid"
               class="help-block">Invalid user name</span>
         <span ng-show="login_form.password.$dirty &amp;&amp; login_form.password.$invalid"
               class="help-block">Invalid password</span>
-        <input type="text" name="user" id="user" ng-model="login.user" required ng-minlength="2" placeholder="Enter your username">
-        <input type="password" name="password" id="password" ng-model="login.password" required ng-minlength="4" placeholder="Enter your password">
-        <button type="submit">Login</button>
+        <div class="form-group">
+            <input type="text" class="textBox" name="user" id="user" ng-model="login.user" required ng-minlength="2" placeholder="username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="textBox"name="password" id="password" ng-model="login.password" required ng-minlength="4" placeholder="password">
+        </div>
+        <button type="submit" class="btn">Login</button>
     </form>
 </div>
