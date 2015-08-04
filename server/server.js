@@ -12,13 +12,14 @@ var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var session = require('express-session');
-var genuuid = require('gen-uuid');
+//var genuuid = require('gen-uuid');
 
 mongoose.connect('localhost', 'test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback() {
     console.log('Connected to DB');
+    getUsers();
 });
 
 // User Schema
@@ -27,7 +28,7 @@ var userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true}
 });
-
+/*
 // Bcrypt middleware
 userSchema.pre('save', function(next) {
     var user = this;
@@ -47,15 +48,25 @@ userSchema.pre('save', function(next) {
 
 // Password verification
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if(err) return cb(err);
-        cb(null, isMatch);
-    });
+    //bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    //    if(err) return cb(err);
+    //    cb(null, isMatch);
+    //});
+    if (candidatePassword === this.password) {
+        cb(null, true);
+    } else {
+        cb("password does not match");
+    }
 };
-
+*/
 // Seed a user
-var User = mongoose.model('User', userSchema);
-var usr = new User({ username: 'bob', email: 'bob@example.com', password: 'secret' });
+mongoose.model('User', userSchema);
+var User = mongoose.model('User');
+/*
+var usr = new User();
+usr.username = 'bob';
+usr.email = 'bob@example.com';
+usr.password = 'secret';
 console.log("before save");
 usr.save(function(err) {
     console.log("saving...");
@@ -65,6 +76,18 @@ usr.save(function(err) {
         console.log('user: ' + usr.username + " saved.");
     }
 });
+console.log("after save");
+*/
+function getUsers() {
+    User.findOne({username: 'bob'}, function (err, user) {
+        console.log("user: " + user);
+    });
+
+    var array = User.find();
+    console.log("array = " + array.length);
+    console.log("array = " + array[0]);
+    console.log("array = " + array[0].username);
+}
 
 
 // Passport session setup.
@@ -91,7 +114,9 @@ passport.deserializeUser(function(email, done) {
 //   with a user object.  In the real world, this would query a database;
 //   however, in this example we are using a baked-in set of users.
 passport.use(new LocalStrategy(function(username, password, done) {
+    console.log("passport.use, username =  " + username + ", password = " + password);
     User.findOne({ username: username }, function(err, user) {
+        console.log("find one: " + user);
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
         user.comparePassword(password, function(err, isMatch) {
@@ -113,7 +138,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 //   login page.
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login')
+    res.redirect('/api/login')
 }
 
 
@@ -129,12 +154,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator([]));
 app.use(cookieParser());
-app.use(session({
-    genid: function(req) {
-        return genuuid(); // use UUIDs for session IDs
-    },
-    secret: 'AQW3E2RT8F'
-}));
+app.use(session({ resave: true,
+    saveUninitialized: true,
+    secret: 'uwotm8' }));
 //app.use(favicon(path.join(__dirname, '../dist/favicon.ico')));
 
 
@@ -152,7 +174,7 @@ apiRouter.route('/login').post(function(req, res, next) {
         if (err) { return next(err) }
         if (!user) {
             req.session.messages =  [info.message];
-            return res.redirect('/login')
+            return res.redirect('/api/login')
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
