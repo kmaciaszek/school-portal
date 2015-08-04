@@ -25,4 +25,15 @@ body {
   float: right;
 }
 
-.form-group{ padding: 0px; }
+.form-group { padding: 0px; }
+
+button:focus, textarea:focus, input:focus {
+  outline: 0;
+}
+input {
+  border: 2px solid transparent;
+}
+input:focus {
+  border: 2px solid @mainYellow;
+  background-color: white;
+}

@@ -162,8 +162,8 @@ app.set('port', port);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 //app.set('views', path.join(__dirname, '../dist'));
+console.log("__dirname = " + __dirname);
 
-app.use(express.static(path.join(__dirname, '../app')));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -173,7 +173,7 @@ app.use(session({ resave: true,
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(expressValidator([]));
-
+app.use(express.static(path.join(__dirname, '../app/')));
 //app.use(favicon(path.join(__dirname, '../dist/favicon.ico')));
 
 
@@ -186,7 +186,7 @@ apiRouter.route('/hello').get(function(request, response) {
     response.write("Hello");
     response.end();
 });
-apiRouter.route('/login').post(function(req, res, next) {
+apiRouter.route('/login1').post(function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err) }
         if (!user) {
