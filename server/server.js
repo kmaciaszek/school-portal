@@ -8,26 +8,40 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongodb = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var session = require('express-session');
-//var genuuid = require('gen-uuid');
 
-mongoose.connect('localhost', 'test');
+var User;
+
+MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+    if(err) throw err;
+    User = db.collection('User');
+    User.find({username: 'bob'}).toArray(function(err, docs) {
+        console.log("---------------------");
+        console.log(docs);
+        console.log("---------------------");
+    });
+
+});
+
+/*
+mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback() {
     console.log('Connected to DB');
     getUsers();
 });
-
+var Schema = mongoose.Schema;
 // User Schema
-var userSchema = mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true}
+var userSchema = new Schema({
+    username: String,
+    email: String,
+    password: String
 });
+*/
 /*
 // Bcrypt middleware
 userSchema.pre('save', function(next) {
@@ -58,10 +72,10 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
         cb("password does not match");
     }
 };
-*/
+ */
 // Seed a user
-mongoose.model('User', userSchema);
-var User = mongoose.model('User');
+//var User = mongoose.model('User', userSchema);
+//var User = mongoose.model('User');
 /*
 var usr = new User();
 usr.username = 'bob';
@@ -78,17 +92,20 @@ usr.save(function(err) {
 });
 console.log("after save");
 */
+/*
 function getUsers() {
     User.findOne({username: 'bob'}, function (err, user) {
         console.log("user: " + user);
+        console.log(err);
     });
 
-    var array = User.find();
-    console.log("array = " + array.length);
-    console.log("array = " + array[0]);
-    console.log("array = " + array[0].username);
-}
+    User.find({}, function(err, docs) {
+        console.log(docs);
+    });
 
+
+}
+*/
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -119,14 +136,11 @@ passport.use(new LocalStrategy(function(username, password, done) {
         console.log("find one: " + user);
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-        user.comparePassword(password, function(err, isMatch) {
-            if (err) return done(err);
-            if(isMatch) {
-                return done(null, user);
-            } else {
-                return done(null, false, { message: 'Invalid password' });
-            }
-        });
+        if (user.password === password) {
+            return done(null, user);
+        } else {
+            return done(null, false, {message: 'Invalid password'});
+        }
     });
 }));
 
@@ -141,7 +155,6 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/api/login')
 }
 
-
 var app = express();
 var port = process.env.PORT || 3000;
 
@@ -150,13 +163,17 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 //app.set('views', path.join(__dirname, '../dist'));
 
+app.use(express.static(path.join(__dirname, '../app')));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressValidator([]));
-app.use(cookieParser());
 app.use(session({ resave: true,
     saveUninitialized: true,
     secret: 'uwotm8' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressValidator([]));
+
 //app.use(favicon(path.join(__dirname, '../dist/favicon.ico')));
 
 
@@ -193,7 +210,7 @@ app.use('/api', apiRouter);
 
 // static content Router
 // This must be below the rendering handlers to avoid simple, static rendering of those
-app.use(express.static(path.join(__dirname, '../app')));
+
 
 
 // catch 404 and forward to the error handlers below
