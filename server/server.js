@@ -173,7 +173,7 @@ app.use(session({ resave: true,
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(expressValidator([]));
-app.use(express.static(path.join(__dirname, '../app/')));
+app.use('/app', express.static('app'));
 //app.use(favicon(path.join(__dirname, '../dist/favicon.ico')));
 
 
@@ -212,7 +212,7 @@ app.use('/api', apiRouter);
 // This must be below the rendering handlers to avoid simple, static rendering of those
 
 
-
+/*
 // catch 404 and forward to the error handlers below
 app.use(function (req, res, next) {
     //log.error({url: req.url}, '404: Page not found');
@@ -242,7 +242,7 @@ app.use(function (err, req, res) {
         error: {}
     });
 });
-
+ */
 // Starts the server.
 app.startListening = function () {
     app.listen(port, function () {
