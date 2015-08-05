@@ -14,14 +14,23 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 
 var User;
+var Subject;
 
 MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
     if(err) throw err;
     User = db.collection('User');
+    Subject = db.collection('Subject');
+
     User.find({username: 'bob'}).toArray(function(err, docs) {
         console.log("---------------------");
         console.log(docs);
         console.log("---------------------");
+    });
+
+    Subject.find().toArray(function(err, docs) {
+        console.log("-------SUBJECTS - start-------------");
+        console.log(docs);
+        console.log("-------SUBJECTS - end--------------");
     });
 
 });
@@ -186,7 +195,20 @@ apiRouter.route('/hello').get(function(request, response) {
     response.write("Hello");
     response.end();
 });
-apiRouter.route('/login1').post(function(req, res, next) {
+
+apiRouter.route('/subjects').get(function(request, response) {
+    getSubjects(function (err, subjectList) {
+        if (err || !subjectList) {
+            response.status(500);
+            response.end();
+        } else {
+            response.status(200);
+            response.send(subjectList);
+        }
+    });
+});
+
+apiRouter.route('/login').post(function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err) }
         if (!user) {
@@ -195,7 +217,7 @@ apiRouter.route('/login1').post(function(req, res, next) {
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            return res.redirect('/');
+            return res.redirect('/app');
         });
     })(req, res, next);
 });
@@ -210,6 +232,12 @@ app.use('/api', apiRouter);
 
 // static content Router
 // This must be below the rendering handlers to avoid simple, static rendering of those
+
+function getSubjects(callback) {
+    Subject.find({}, {_id:0, name: 1}).toArray(function(err, docs) {
+       return  callback(err, docs);
+    });
+}
 
 
 /*
