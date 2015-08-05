@@ -10,7 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
-//var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 var session = require('express-session');
 
 var User;
@@ -209,15 +209,22 @@ apiRouter.route('/subjects').get(function(request, response) {
 });
 
 apiRouter.route('/login').post(function(req, res, next) {
+    console.log('login...');
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err) }
         if (!user) {
+            console.log('user not found');
             req.session.messages =  [info.message];
-            return res.redirect('/api/login')
+            res.status(401);
+            res.end();
+            return;
         }
+        console.log('user found ' + user.username);
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            return res.redirect('/app');
+            res.status(200);
+            res.send(user);
+            return;
         });
     })(req, res, next);
 });

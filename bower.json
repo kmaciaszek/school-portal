@@ -11,6 +11,7 @@
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
-    "less": "2.5.1"
+    "less": "2.5.1",
+    "crypto-js": "3.1.5"
   }
 }
