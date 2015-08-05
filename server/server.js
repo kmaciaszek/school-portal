@@ -10,7 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+//var bcrypt = require('bcrypt');
 var session = require('express-session');
 
 var User;
