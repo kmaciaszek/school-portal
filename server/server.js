@@ -9,112 +9,31 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var MongoClient = require('mongodb').MongoClient;
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
 var session = require('express-session');
 
 var User;
 var Subject;
 
-MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db) {
+MongoClient.connect('mongodb://127.0.0.1:27017/test', dbConnectionHandler);
+
+function dbConnectionHandler (err, db) {
     if(err) throw err;
     User = db.collection('User');
     Subject = db.collection('Subject');
 
-    User.find({username: 'bob'}).toArray(function(err, docs) {
+    User.find({username: 'bob'}, {_id:0}).toArray(function(err, docs) {
         console.log("---------------------");
         console.log(docs);
         console.log("---------------------");
     });
 
-    Subject.find().toArray(function(err, docs) {
+    Subject.find({}, {_id:0}).toArray(function(err, docs) {
         console.log("-------SUBJECTS - start-------------");
         console.log(docs);
         console.log("-------SUBJECTS - end--------------");
     });
 
-});
-
-/*
-mongoose.connect('mongodb://localhost/test');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback() {
-    console.log('Connected to DB');
-    getUsers();
-});
-var Schema = mongoose.Schema;
-// User Schema
-var userSchema = new Schema({
-    username: String,
-    email: String,
-    password: String
-});
-*/
-/*
-// Bcrypt middleware
-userSchema.pre('save', function(next) {
-    var user = this;
-
-    if(!user.isModified('password')) return next();
-
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-        if(err) return next(err);
-
-        bcrypt.hash(user.password, salt, function(err, hash) {
-            if(err) return next(err);
-            user.password = hash;
-            next();
-        });
-    });
-});
-
-// Password verification
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
-    //bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    //    if(err) return cb(err);
-    //    cb(null, isMatch);
-    //});
-    if (candidatePassword === this.password) {
-        cb(null, true);
-    } else {
-        cb("password does not match");
-    }
-};
- */
-// Seed a user
-//var User = mongoose.model('User', userSchema);
-//var User = mongoose.model('User');
-/*
-var usr = new User();
-usr.username = 'bob';
-usr.email = 'bob@example.com';
-usr.password = 'secret';
-console.log("before save");
-usr.save(function(err) {
-    console.log("saving...");
-    if(err) {
-        console.log(err);
-    } else {
-        console.log('user: ' + usr.username + " saved.");
-    }
-});
-console.log("after save");
-*/
-/*
-function getUsers() {
-    User.findOne({username: 'bob'}, function (err, user) {
-        console.log("user: " + user);
-        console.log(err);
-    });
-
-    User.find({}, function(err, docs) {
-        console.log(docs);
-    });
-
-
 }
-*/
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -170,21 +89,17 @@ var port = process.env.PORT || 3000;
 app.set('port', port);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-//app.set('views', path.join(__dirname, '../dist'));
-console.log("__dirname = " + __dirname);
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({ resave: true,
     saveUninitialized: true,
-    secret: 'uwotm8' }));
+    secret: 'u7y6t5fg' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(expressValidator([]));
 app.use('/app', express.static('app'));
 //app.use(favicon(path.join(__dirname, '../dist/favicon.ico')));
-
 
 // API Router
 // handles API requests
@@ -237,11 +152,13 @@ apiRouter.route('/logout').get(function(req, res){
 
 app.use('/api', apiRouter);
 
+
+
 // static content Router
 // This must be below the rendering handlers to avoid simple, static rendering of those
 
 function getSubjects(callback) {
-    Subject.find({}, {_id:0, name: 1}).toArray(function(err, docs) {
+    Subject.find({}, {_id:0}).toArray(function(err, docs) {
        return  callback(err, docs);
     });
 }

@@ -11,8 +11,12 @@ function SubjectsController($scope, $location, $http) {
             method: 'get',
             url: 'http://localhost:3000/api/subjects'
         }).then(function (response) {
-            $scope.subjects = response.data; // cache package registrations
-            //return response.data;
+            if (response.status === 200) {
+                $scope.subjects = response.data;
+            } else {
+
+            }
+
         });
     }
 
