@@ -7,7 +7,7 @@ body {
   background-color: @mainBackground;
 }
 
-.btn {
+.btn, .btn1  {
   color: @mainYellow;
   border: 1px solid @mainYellow;
   background-color: @navbarBackground;
@@ -15,14 +15,15 @@ body {
   padding: 6px 14px;
 }
 
-.btn:hover {
+.btn:hover, .btn1:hover {
   color: @navbarBackground;
   text-decoration: none;
   background-color: @mainYellow;
 }
 
-.btn-right {
+.btn1 {
   float: right;
+  margin: 5px 0px 0px 0px;
 }
 
 .form-group { padding: 0px; }
@@ -32,8 +33,20 @@ button:focus, textarea:focus, input:focus {
 }
 input {
   border: 2px solid transparent;
-}
+  background-color:lightgray;}
 input:focus {
   border: 2px solid @mainYellow;
-  background-color: white;
+ background-color:white;
+  box-shadow: none;
+  outline: none !important;
+  background:white;
+
+
+}
+input:focus::-webkit-input-placeholder {
+
+
+}
+.help-block{
+  color:@mainYellow;
 }
