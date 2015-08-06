@@ -23,12 +23,16 @@ app.config(['$routeProvider', function($routeProvider) {
               controller: 'View2Ctrl'
           })
           .when('/login', {
-            templateUrl: 'Login/login.html',
+            templateUrl: 'Login/Login.html',
             controller: 'LoginController'
           })
           .when('/subject', {
-              templateUrl: 'Subject/subjects.html',
+              templateUrl: 'Subject/Subjects.html',
               controller: 'SubjectsController'
+          })
+          .when('/logout', {
+              templateUrl: 'Logout/Logout.html',
+              controller: 'LogoutController'
           })
           .otherwise({redirectTo: '/view1'});
 }]);
@@ -36,7 +40,8 @@ app.config(['$routeProvider', function($routeProvider) {
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;
     $rootScope.loggedIn = false;
-
-
+    $rootScope.unauthorized = false;
+    $rootScope.wrong1 = false;
+    $rootScope.wrong2 = false;
 
 });

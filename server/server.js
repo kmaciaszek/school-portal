@@ -52,6 +52,7 @@ passport.deserializeUser(function(email, done) {
     });
 });
 
+/* comment */
 
 // Use the LocalStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept

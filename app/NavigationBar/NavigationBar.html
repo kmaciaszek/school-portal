@@ -6,5 +6,6 @@
         <button ng-show="loggedIn" ng-click="location.path('/subject')" class="btn">Subject</button>
         <button ng-hide="loggedIn" ng-click="location.path('/login')" class="btn">Login</button>
         <button ng-hide="loggedIn" ng-click="location.path('/register')" class="btn">Register</button>
+        <button ng-show="loggedIn" ng-click="logout()" class="btn">Logout</button>
     </div>
 </div>

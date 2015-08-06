@@ -1,6 +1,11 @@
 /* global angular */
 
-function NavigationBarController($scope, $location) {
+function NavigationBarController($scope, $location, $rootScope) {
+
+    $scope.logout= function(){
+        $location.path('/logout');
+        $rootScope.loggedIn = false;
+    }
 
 }
 
