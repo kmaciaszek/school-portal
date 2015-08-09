@@ -41,8 +41,6 @@ app.config(['$routeProvider', function($routeProvider) {
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;
     $rootScope.loggedIn = false;
-    $rootScope.unauthorized = false;
-    $rootScope.wrong1 = false;
-    $rootScope.wrong2 = false;
+    $rootScope.settings = settings;
 
 });

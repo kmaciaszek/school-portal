@@ -1,5 +1,6 @@
+/* global angular */
 
-function UserService ($rootScope, $scope, $location, $http, settings) {
+function UserService ($rootScope, $location, $http) {
     'use strict';
 
     function loginUser(username, password) {
@@ -9,14 +10,16 @@ function UserService ($rootScope, $scope, $location, $http, settings) {
             credentials.password = passwordEncrypted;
             $http.post(settings.location.login, credentials).then(function(response) {
                 $rootScope.loggedIn = true;
-                $scope.unauthorized = false;
                 $location.path("/view1");
             }, function(error, response) {
                 $rootScope.loggedIn = false;
-                $scope.unauthorized = true;
                 console.log(error);
             });
     }
+
+    return {
+        loginUser: loginUser
+    }
 }
 
-module.exports = angular.module('myApp.services').factory('UserService', UserService);
+angular.module('myApp.services').factory('UserService', UserService);
