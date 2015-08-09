@@ -27,7 +27,40 @@ function findByEmail(email, callback) {
     });
 }
 
+function findById(id, callback) {
+    db.query('SELECT * from user where id = ?', [id], function (err, rows, fields) {
+        if (!err) {
+            if (rows.length > 0) {
+                callback(err, rows[0]);
+            } else {
+                callback(err, null);
+            }
+        } else {
+            callback(err, null);
+        }
+    });
+}
+
+function insertUser(user, callback) {
+    db.query('insert into user set ?', user, function(err, res) {
+        if (!err) {
+            if (res.insertId) {
+                findById(res.insertId, function(err, user) {
+                    if (!err) {
+                        callback(err, user);
+                    } else {
+                        callback(err, null);
+                    }
+                });
+            }
+        } else {
+            callback(err, null);
+        }
+    });
+}
+
 module.exports = {
     findByEmail: findByEmail,
-    findAll: findAll
-}
+    findAll: findAll,
+    insertUser: insertUser
+};

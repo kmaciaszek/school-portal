@@ -11,7 +11,22 @@ var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var User = require('./dao/UserDAO');
 
+/*
+var user = {
+    first_name: 'Iwona',
+    last_name: 'Maciaszek',
+    email: 'iwona.klysz@gmail.com',
+    password: require('crypto-js').SHA256('secret').toString()
+};
 
+User.insertUser(user, function(err, user) {
+   if (!err) {
+       console.log(user);
+   } else {
+       console.log(err);
+   }
+});
+*/
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
