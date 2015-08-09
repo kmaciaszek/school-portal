@@ -8,32 +8,10 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var MongoClient = require('mongodb').MongoClient;
 var session = require('express-session');
+var User = require('./dao/UserDAO');
 
-var User;
-var Subject;
 
-MongoClient.connect('mongodb://127.0.0.1:27017/test', dbConnectionHandler);
-
-function dbConnectionHandler (err, db) {
-    if(err) throw err;
-    User = db.collection('User');
-    Subject = db.collection('Subject');
-
-    User.find({username: 'bob'}, {_id:0}).toArray(function(err, docs) {
-        console.log("---------------------");
-        console.log(docs);
-        console.log("---------------------");
-    });
-
-    Subject.find({}, {_id:0}).toArray(function(err, docs) {
-        console.log("-------SUBJECTS - start-------------");
-        console.log(docs);
-        console.log("-------SUBJECTS - end--------------");
-    });
-
-}
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -47,12 +25,10 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(email, done) {
-    User.findOne( { email: email } , function (err, user) {
+    User.findByEmail(email, function (err, user) {
         done(err, user);
     });
 });
-
-/* comment */
 
 // Use the LocalStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
@@ -61,7 +37,7 @@ passport.deserializeUser(function(email, done) {
 //   however, in this example we are using a baked-in set of users.
 passport.use(new LocalStrategy(function(username, password, done) {
     console.log("passport.use, username =  " + username + ", password = " + password);
-    User.findOne({ username: username }, function(err, user) {
+    User.findByEmail(username, function(err, user) {
         console.log("find one: " + user);
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -72,7 +48,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
         }
     });
 }));
-
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
@@ -135,7 +110,6 @@ apiRouter.route('/login').post(function(req, res, next) {
             res.end();
             return;
         }
-        console.log('user found ' + user.username);
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             res.status(200);
@@ -150,52 +124,8 @@ apiRouter.route('/logout').get(function(req, res){
     res.redirect('/');
 });
 
-
 app.use('/api', apiRouter);
 
-
-
-// static content Router
-// This must be below the rendering handlers to avoid simple, static rendering of those
-
-function getSubjects(callback) {
-    Subject.find({}, {_id:0}).toArray(function(err, docs) {
-       return  callback(err, docs);
-    });
-}
-
-
-/*
-// catch 404 and forward to the error handlers below
-app.use(function (req, res, next) {
-    //log.error({url: req.url}, '404: Page not found');
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// Development error handler. Will print stack trace
-if (app.get('env') === 'development') {
-    app.use(function (err, req, res) {
-        //log.error({err: err, url: req.url}, 'Express error');
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// Production error handler. No stack traces are leaked to the client.
-app.use(function (err, req, res) {
-    //log.error({err: err}, 'Express error');
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
- */
 // Starts the server.
 app.startListening = function () {
     app.listen(port, function () {

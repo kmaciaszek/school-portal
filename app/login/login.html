@@ -2,15 +2,15 @@
 
 <div class="login">
     <form name="login_form" class="loginForm" novalidate role="form"
-          validate-before-submit="login(login.user, login.password)">
-        <span ng-show ="unauthorized" class="help-block">User name or password is incorrect!</span>
-        <span ng-show="wrong1" class="help-block"  ><br>user name is too short!</span>
-        <span ng-show="wrong2" class="help-block"><br>password is too short!</span>
-        <div class="form-group">
-            <input type="text" class="textBox" name="user" id="user" ng-model="login.user"  placeholder="username" ng-blur="ver1()">
+          validate-before-submit="login(credentials.user, credentials.password)">
+        <div class="login-error">
+            <span ng-show ="unauthorized" class="help-block">User name or password is incorrect</span>
         </div>
         <div class="form-group">
-            <input type="password" class="textBox"name="password" id="password" ng-model="login.password"  placeholder="password" ng-blur="ver2()" >
+            <input type="text" class="textBox" name="user" id="user" ng-model="credentials.user" placeholder="username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="textBox"name="password" id="password" ng-model="credentials.password"  placeholder="password">
         </div>
         <button type="submit" class="btn btn-right">Login</button>
     </form>

@@ -1,24 +1,10 @@
 /* global angular */
 
-function LoginController ($q, $rootScope, $scope, $location, $http) {
+function LoginController ($rootScope, $scope, $location, $http) {
     'use strict';
 
-    $scope.ver1 = function() {
-        var x = document.getElementById("user");
-        if (x.value.length < 3) {
-            $rootScope.wrong1 = true;
-        } else {
-            $rootScope.wrong1 = false;
-        }
-    }
-        $scope.ver2 = function(){
-            var x = document.getElementById("password");
-            if (x.value.length < 4) {
-                $rootScope.wrong2 = true;
-            } else {
-                $rootScope.wrong2 = false;
-            }
-    }
+    var credentials = {};
+    $scope.credentials = credentials;
 
     $scope.login = function(username, password) {
         //alert('User: ' + user + ', password = ' + password);
@@ -29,9 +15,11 @@ function LoginController ($q, $rootScope, $scope, $location, $http) {
         credentials.password = passwordEncrypted;
         $http.post('http://localhost:3000/api/login', credentials).then(function(response) {
             $rootScope.loggedIn = true;
+            $scope.unauthorized = false;
             $location.path("/view1");
         }, function(error, response) {
-            $rootScope.unauthorized = true;
+            $rootScope.loggedIn = false;
+            $scope.unauthorized = true;
             console.log(error);
         });
     }
