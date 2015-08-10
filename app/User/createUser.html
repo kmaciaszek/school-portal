@@ -1,0 +1,17 @@
+<form name="reg_form" novalidate role="form" validate-before-submit="createUser()" class="crete_user_form">
+
+    <div class="form-group has-feedback"
+         ng-class="{'error has-error': reg_form.name.$dirty && reg_form.name.$invalid}">
+        <input type="text" name="first_name" id="first_name" placeholder="First Name" required ng-minlength="2"
+               ng-model="userData.firstName"
+               ng-attr-autofocus="{{''}}" class="form-control input-lg" ng-model-options="{ updateOn: 'blur' }"
+               ng-pattern="settings.validation.nameRegex"/>
+			<span class="fa fa-frown-o form-control-feedback"
+                  ng-if="reg_form.first_name.$dirty && reg_form.first_name.$invalid"></span>
+        <span ng-show="reg_form.first_name.$dirty && reg_form.first_name.$invalid" class="help-block">Please enter your first name.</span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-block btn-success btn-lg">REGISTER</button>
+    </div>
+</form>

@@ -35,6 +35,10 @@ app.config(['$routeProvider', function($routeProvider) {
               templateUrl: 'Logout/Logout.html',
               controller: 'LogoutController'
           })
+          .when('/user/create', {
+              templateUrl: 'User/createUser.html',
+              controller: 'CreateUserController'
+          })
           .otherwise({redirectTo: '/view1'});
 }]);
 
