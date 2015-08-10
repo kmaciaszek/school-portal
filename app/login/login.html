@@ -3,9 +3,9 @@
 <div class="login">
     <form name="login_form" class="loginForm" novalidate role="form"
           validate-before-submit="login(credentials.user, credentials.password)">
-        <div class="login-error">
-            <span ng-show ="unauthorized" class="help-block">User name or password is incorrect</span>
-        </div>
+
+            <span  ng-show ="unauthorized" class="help-block">User name or password is incorrect</span>
+
         <div class="form-group">
             <input type="text" class="textBox" name="user" id="user" ng-model="credentials.user" placeholder="username">
             <input type="password" class="textBox"name="password" id="password" ng-model="credentials.password"  placeholder="password">

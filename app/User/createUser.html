@@ -1,17 +1,81 @@
+
 <form name="reg_form" novalidate role="form" validate-before-submit="createUser()" class="crete_user_form">
 
-    <div class="form-group has-feedback"
-         ng-class="{'error has-error': reg_form.name.$dirty && reg_form.name.$invalid}">
-        <input type="text" name="first_name" id="first_name" placeholder="First Name" required ng-minlength="2"
+
+    <div class="row">
+        <div class="form-group has-feedback inner-addon right-addon  col-md-8"
+         ng-class="{'error has-error ': reg_form.first_name.$dirty && reg_form.first_name.$invalid, }">
+            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.first_name.$dirty && reg_form.first_name.$invalid"></i>
+            <input type="text" name="first_name" id="first_name" placeholder="First Name" required ng-minlength="2"
                ng-model="userData.firstName"
-               ng-attr-autofocus="{{''}}" class="form-control input-lg" ng-model-options="{ updateOn: 'blur' }"
+               ng-attr-autofocus="{{''}}" class="form-control input-lg " ng-model-options="{ updateOn: 'blur' }"
                ng-pattern="settings.validation.nameRegex"/>
-			<span class="fa fa-frown-o form-control-feedback"
-                  ng-if="reg_form.first_name.$dirty && reg_form.first_name.$invalid"></span>
-        <span ng-show="reg_form.first_name.$dirty && reg_form.first_name.$invalid" class="help-block">Please enter your first name.</span>
+        </div>
+        <div class="col-md-4 warning" ng-show="reg_form.first_name.$dirty && reg_form.first_name.$invalid">
+            <span  >Please enter your first name.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group has-feedback inner-addon right-addon col-md-8"
+                ng-class="{'error has-error ': reg_form.last_name.$dirty && reg_form.last_name.$invalid, }">
+            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.last_name.$dirty && reg_form.last_name.$invalid" ></i>
+            <input type="text" name="last_name" id="last_name" placeholder="Last Name" required ng-minlength="2"
+           ng-model="userData.lastName"
+           ng-attr-autofocus="{{''}}" class="form-control input-lg " ng-model-options="{ updateOn: 'blur' }"
+           ng-pattern="settings.validation.nameRegex"/>
+        </div>
+        <div class="col-md-4 warning" ng-show="reg_form.last_name.$dirty && reg_form.last_name.$invalid" >
+        <span >Please enter your last name.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group has-feedback inner-addon right-addon col-md-8"
+         ng-class="{'error has-error ': reg_form.email_address.$dirty && reg_form.email_address.$invalid, }">
+            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.email_address.$dirty && reg_form.email_address.$invalid"></i>
+            <input type="email" name="email_address" id="last_name" placeholder="Email Address" required ng-minlength="2"
+               ng-model="userData.emailAddress"
+               ng-attr-autofocus="{{''}}" class="form-control input-lg " ng-model-options="{ updateOn: 'blur' }"
+               ng-pattern="settings.validation.nameRegex"/>
+        </div>
+        <div class="col-md-4 warning" ng-show="reg_form.email_address.$dirty && reg_form.email_address.$invalid" >
+            <span  >Please enter a valid email address.</span>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="form-group has-feedback inner-addon right-addon col-md-8"
+         ng-class="{'error has-error ': reg_form.user_password.$dirty && reg_form.user_password.$invalid, }">
+            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.user_password.$dirty && reg_form.user_password.$invalid"></i>
+            <input type="password" name="user_password" id="user_password" placeholder="Password" required ng-minlength="4"
+               ng-model="userData.userPassword"
+               ng-attr-autofocus="{{''}}" class="form-control input-lg " ng-model-options="{ updateOn: 'blur' }"
+               ng-pattern="settings.validation.nameRegex"/>
+
+        </div>
+        <div class="col-md-4 warning" ng-show="reg_form.user_password.$dirty && reg_form.user_password.$invalid">
+            <span>Password must be at least 4 characters.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group has-feedback inner-addon right-addon col-md-8"
+         ng-class="{'error has-error ' : reg_form.account.$dirty && reg_form.account.$invalid}">
+            <select name="account"  class="form-control input-lg  dropdown inner-addon right-addon" ng-model="account" required >
+                <option value="" disabled selected>choose a type of the account  </option>
+            <option value="0">Super Admin</option>
+            <option value="1">Teacher</option>
+            <option value="2">Secretary</option>
+
+            </select>
+            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.account.$dirty && reg_form.account.$invalid"  ></i>
+        </div>
+        <div class="col-md-4 warning" ng-show="reg_form.account.$dirty && reg_form.account.$invalid">
+        <span>Please choose a type af the account.</span>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-block btn-success btn-lg">REGISTER</button>
     </div>
+
+    <div class="button-div">
+        <button type="submit" class="btn btn-block btn-success btn-lg btn-register">REGISTER</button>
+    </div>
+
 </form>

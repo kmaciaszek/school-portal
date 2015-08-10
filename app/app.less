@@ -21,6 +21,7 @@ body {
     text-decoration: none;
     background-color: @mainYellow;
     outline: none;
+    border: 1px solid transparent !important;
   }
 }
 
@@ -35,20 +36,17 @@ button:focus, textarea:focus, input:focus {
 
 input {
   border: 2px solid transparent;
-  background-color:lightgray;}
+  background-color:lightgray;
+}
+
 input:focus {
   border: 2px solid @mainYellow;
-  background-color:white;
+  background-color: white;
   box-shadow: none;
   outline: none !important;
-  background:white;
-
-
+  background: white;
 }
-input:focus::-webkit-input-placeholder {
 
-
-}
 .help-block{
   color: @warning;
 }
