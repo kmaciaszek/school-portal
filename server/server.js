@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var User = require('./dao/UserDAO');
+var Role = require('./dao/RoleDAO');
 
 /*
 var user = {
@@ -102,17 +103,32 @@ apiRouter.route('/hello').get(function(request, response) {
     response.end();
 });
 
-apiRouter.route('/subjects').get(function(request, response) {
-    getSubjects(function (err, subjectList) {
-        if (err || !subjectList) {
+apiRouter.route('/role/all').post(function(request, response) {
+    Role.findAll(function(err, rows) {
+        if (err || !rows) {
             response.status(500);
             response.end();
         } else {
             response.status(200);
-            response.send(subjectList);
+            response.send(rows);
         }
     });
 });
+
+apiRouter.route('/user/save').post(function(request, response) {
+    console.log(request.body);
+    User.insertUser(request.body, function(err, row) {
+        if (err || !row) {
+            console.log(err);
+            response.status(500);
+            response.end();
+        } else {
+            response.status(200);
+            response.send(row);
+        }
+    });
+});
+
 
 apiRouter.route('/login').post(function(req, res, next) {
     console.log('login...');
@@ -134,7 +150,7 @@ apiRouter.route('/login').post(function(req, res, next) {
     })(req, res, next);
 });
 
-apiRouter.route('/logout').get(function(req, res){
+apiRouter.route('/logout').post(function(req, res){
     req.logout();
     res.redirect('/');
 });

@@ -4,8 +4,7 @@ function findAll(callback) {
     db.query('SELECT * from user', function (err, rows, fields) {
         if (!err) {
             console.log('Users: ', rows);
-
-            callback(err, doSOmethingWithUsers(rows));
+            callback(err, rows);
         } else {
             console.log('Error while performing Query.');
             callback(err, null);

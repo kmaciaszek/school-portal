@@ -2,7 +2,13 @@
 
 var settings = {
     location: {
-        login: '/api/login'
+        login: '/api/login',
+        role: {
+            all: '/api/role/all'
+        },
+        user: {
+            save: '/api/user/save'
+        }
     },
     validation: {
         emailRegex: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i,
