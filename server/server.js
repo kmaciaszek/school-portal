@@ -115,6 +115,17 @@ apiRouter.route('/role/all').post(function(request, response) {
     });
 });
 
+apiRouter.route('/user/all').post(function(request, response) {
+    User.findAll(function(err, rows) {
+        if (err || !rows) {
+            response.status(500);
+            response.end();
+        } else {
+            response.status(200);
+            response.send(rows);
+        }
+    });
+});
 apiRouter.route('/user/save').post(function(request, response) {
     console.log(request.body);
     User.insertUser(request.body, function(err, row) {

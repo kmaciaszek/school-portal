@@ -28,6 +28,13 @@ function UserService ($rootScope, $location, $http) {
             console.log(error);
         });
     }
+    function getAllUsers() {
+        return $http.post(settings.location.user.all).then(function(response) {
+            return response.data;
+        }, function(error, response) {
+            console.log(error);
+        });
+    }
 
     function saveUser(user) {
         user.password = encryptPassword(user.password);
@@ -41,7 +48,8 @@ function UserService ($rootScope, $location, $http) {
     return {
         loginUser: loginUser,
         getAllRoles: getAllRoles,
-        saveUser: saveUser
+        saveUser: saveUser,
+        getAllUsers: getAllUsers,
     }
 }
 

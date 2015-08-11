@@ -63,9 +63,9 @@
                     ng-options="role.id as role.name for role in roles">
                 <option value="" disabled selected>User Role</option>
             </select>
-            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.account.$dirty && reg_form.account.$invalid"  ></i>
+            <i class="glyphicon glyphicon-remove-circle" ng-show="reg_form.role.$dirty && reg_form.role.$invalid"  ></i>
         </div>
-        <div class="col-md-4 warning" ng-show="reg_form.account.$dirty && reg_form.account.$invalid">
+        <div class="col-md-4 warning" ng-show="reg_form.role.$dirty && reg_form.role.$invalid">
         <span>Please choose a type af the account.</span>
     </div>
 

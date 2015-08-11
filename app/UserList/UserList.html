@@ -1,0 +1,32 @@
+<div class="UserList">
+    <div class="div">
+        <span class="titleSpan">LIST OF USERS</span>
+    </div>
+
+    <div class="datatable" id="datatable " ng-controller="UserListController">
+        <table align="center" class="tablee table-hover">
+            <thead>
+            <tr>
+                <th class="headers" ng-repeat="header in headers | filter:headerFilter | orderBy:headerOrder" width="{{header.width}}">{{header.label}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in users" ng-class-odd="'Odd'" ng-class-even="'Even'" ng-dblclick="rowDoubleClicked(user)" class="table-hover">
+                <td ng-repeat="(key,val) in user | orderBy:userOrder(key)">{{val}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+    </div>
+
+
+
+
+<div class="btn-div">
+    <button  ng-click="location.path('/user/create')" class="btn">Add User</button>
+</div>
+
+</div>

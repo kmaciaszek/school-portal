@@ -7,8 +7,10 @@ var settings = {
             all: '/api/role/all'
         },
         user: {
-            save: '/api/user/save'
+            save: '/api/user/save',
+            all: 'api/user/all'
         }
+
     },
     validation: {
         emailRegex: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i,

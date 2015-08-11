@@ -39,6 +39,10 @@ app.config(['$routeProvider', function($routeProvider) {
               templateUrl: 'User/createUser.html',
               controller: 'CreateUserController'
           })
+          .when('/UserList/UserList', {
+            templateUrl: 'UserList/UserList.html',
+            controller: 'UserListController'
+           })
           .otherwise({redirectTo: '/view1'});
 }]);
 
