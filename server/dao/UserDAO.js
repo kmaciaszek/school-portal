@@ -7,6 +7,7 @@ function findAll(callback) {
             callback(err, rows);
         } else {
             console.log('Error while performing Query.');
+            console.log(err);
             callback(err, null);
         }
     });

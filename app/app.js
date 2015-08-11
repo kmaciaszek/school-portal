@@ -10,7 +10,7 @@
      'myApp.services'
 ]);
 
-angular.module('myApp.directives', []);
+angular.module('myApp.directives', ['datatables']);
 angular.module('myApp.services', []);
 
 app.config(['$routeProvider', function($routeProvider) {

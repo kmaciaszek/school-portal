@@ -8,7 +8,7 @@ var settings = {
         },
         user: {
             save: '/api/user/save',
-            all: 'api/user/all'
+            all: '/api/user/all'
         }
 
     },
