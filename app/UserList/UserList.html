@@ -4,7 +4,7 @@
     </div>
 
     <div class="datatable" id="datatable " ng-controller="UserListController">
-        <table align="center" class="tablee table-hover">
+        <table align="center" class="table tablee table-striped  table-hover">
             <thead>
             <tr>
                 <th class="headers" ng-repeat="header in headers | filter:headerFilter | orderBy:headerOrder" width="{{header.width}}">{{header.label}}</th>
