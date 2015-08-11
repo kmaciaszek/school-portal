@@ -57,10 +57,38 @@ input:focus {
     font-weight: normal;
     input {
       color: @textDark;
+      border-radius:@radius;
     }
+  }
+  select {
+    border-radius:@radius;
+  }
+}
+.row-border{
+
+
+  .paginate_button{border-radius: @radius;}
+  .paginate_button.current{
+    border-radius:@radius;
+  }
+}
+.hover {
+  .paginate_button {
+    border-radius: @radius;
+  }
+  .paginate_button.current {
+    border-radius: @radius;
   }
 }
 table.dataTables {
+
+  .paginate_button{border-radius: @radius;}
+  .paginate_button.current{
+    border-radius:@radius;
+  }
+
+
+
   tr.odd {
     background-color: white;
     color: black;
@@ -93,4 +121,6 @@ table.dataTables {
     border-bottom-right-radius: @radius;
   }
 }
+.dataTables_paginate .paginate_button.current, .dataTables_paginate .paginate_button.current:hover {
+ border-radius:@radius;}
 /* DATATABLES end */
