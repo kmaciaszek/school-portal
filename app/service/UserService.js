@@ -12,6 +12,7 @@ function UserService ($rootScope, $location, $http) {
         return $http.post(settings.location.user.login, credentials).then(function(response) {
             console.log(response);
             loggedInUser = response.data;
+            $rootScope.loggedInUser = response.data;
             $rootScope.loggedIn = true;
             return response;
         }, function(error, response) {
@@ -63,13 +64,9 @@ function UserService ($rootScope, $location, $http) {
         });
     }
 
-    function getLoggedInUser() {
-        return loggedInUser;
-    }
     return {
         loginUser: loginUser,
         logout: logout,
-        loggedInUser: getLoggedInUser,
         getAllRoles: getAllRoles,
         saveUser: saveUser,
         getAllUsers: getAllUsers
