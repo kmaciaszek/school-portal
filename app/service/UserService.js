@@ -3,26 +3,40 @@
 function UserService ($rootScope, $location, $http) {
     'use strict';
     var loggedInUser;
+
     function loginUser(username, password) {
-            var passwordEncrypted = encryptPassword(password);
-            var credentials = {};
-            credentials.username = username;
-            credentials.password = passwordEncrypted;
-            return $http.post(settings.location.login, credentials).then(function(response) {
-                console.log(response);
-                loggedInUser = response.data;
-                $rootScope.loggedIn = true;
-                return response;
-            }, function(error, response) {
-                $rootScope.loggedIn = false;
-                loggedInUser = null;
-                console.log(error);
-                return error;
-            });
+        var passwordEncrypted = encryptPassword(password);
+        var credentials = {};
+        credentials.username = username;
+        credentials.password = passwordEncrypted;
+        return $http.post(settings.location.user.login, credentials).then(function(response) {
+            console.log(response);
+            loggedInUser = response.data;
+            $rootScope.loggedIn = true;
+            return response;
+        }, function(error, response) {
+            $rootScope.loggedIn = false;
+            loggedInUser = null;
+            console.log(error);
+            return error;
+        });
     }
 
     function encryptPassword(password) {
         return CryptoJS.SHA256(password).toString();
+    }
+
+    function logout() {
+        return $http.post(settings.location.user.logout).then(function(response) {
+            loggedInUser = null;
+            if (response.status === 200) {
+                return true;
+            }
+            return false;
+        }, function(error, response) {
+            loggedInUser = null;
+            return false;
+        });
     }
 
     function getAllRoles() {
@@ -49,11 +63,16 @@ function UserService ($rootScope, $location, $http) {
         });
     }
 
+    function getLoggedInUser() {
+        return loggedInUser;
+    }
     return {
         loginUser: loginUser,
+        logout: logout,
+        loggedInUser: getLoggedInUser,
         getAllRoles: getAllRoles,
         saveUser: saveUser,
-        getAllUsers: getAllUsers,
+        getAllUsers: getAllUsers
     }
 }
 

@@ -52,6 +52,17 @@ input:focus {
 }
 /* DATATABLES start */
 .dataTables_length, .dataTables_filter {
+  select {
+    color: @textDark;
+    border: 2px solid transparent;
+    outline: none;
+    box-shadow: none;
+
+    &:focus {
+      border: 2px solid @mainYellow !important;
+    }
+  }
+
   label {
     color: @mainYellow;
     font-weight: normal;
@@ -124,3 +135,10 @@ table.dataTables {
 .dataTables_paginate .paginate_button.current, .dataTables_paginate .paginate_button.current:hover {
  border-radius:@radius;}
 /* DATATABLES end */
+.warning{
+  margin: 14px 0px 0px 0px;
+  background-color:@warning;
+  border-radius:@radius;
+  padding:10px;
+  color: white;}
+

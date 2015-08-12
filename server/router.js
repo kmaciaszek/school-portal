@@ -35,8 +35,7 @@ apiRouter.route('/user/save').post(function(request, response) {
     });
 });
 
-
-apiRouter.route('/login').post(function(req, res, next) {
+apiRouter.route('/user/login').post(function(req, res, next) {
     console.log('login...');
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err) }
@@ -56,9 +55,11 @@ apiRouter.route('/login').post(function(req, res, next) {
     })(req, res, next);
 });
 
-apiRouter.route('/logout').post(function(req, res){
+apiRouter.route('/user/logout').post(function(req, res){
     req.logout();
-    res.redirect('/');
+    res.status(200);
+    res.end();
+    return;
 });
 
 
