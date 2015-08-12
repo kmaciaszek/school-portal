@@ -10,7 +10,7 @@ function LoginController ($rootScope, $scope, $location, $http, UserService) {
         UserService.loginUser(username, password).then(function(response) {
             if (response.status === 200) {
                 $scope.unauthorized = false;
-                $location.path("/view1");
+                $location.path("/home");
             } else if (response.status === 401) {
                 $scope.unauthorized = true;
             } else {
