@@ -7,7 +7,16 @@ function LoginController ($rootScope, $scope, $location, $http, UserService) {
     $scope.credentials = credentials;
 
     $scope.login = function(username, password) {
-        UserService.loginUser(username, password);
+        UserService.loginUser(username, password).then(function(response) {
+            if (response.status === 200) {
+                $scope.unauthorized = false;
+                $location.path("/view1");
+            } else if (response.status === 401) {
+                $scope.unauthorized = true;
+            } else {
+                alert("An Error Occurred.");
+            }
+        });
     }
 
 

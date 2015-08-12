@@ -15,9 +15,9 @@ angular.module('myApp.services', []);
 
 app.config(['$routeProvider', function($routeProvider) {
       $routeProvider
-          .when('/view1', {
-              templateUrl: 'view1/view1.html',
-              controller: 'View1Ctrl'
+          .when('/home', {
+              templateUrl: 'Home/home.html',
+              controller: 'HomeController'
           })
           .when('/view2', {
               templateUrl: 'view2/view2.html',
@@ -39,11 +39,11 @@ app.config(['$routeProvider', function($routeProvider) {
               templateUrl: 'User/createUser.html',
               controller: 'CreateUserController'
           })
-          .when('/UserList/UserList', {
+          .when('/user/list', {
             templateUrl: 'UserList/UserList.html',
             controller: 'UserListController'
            })
-          .otherwise({redirectTo: '/view1'});
+          .otherwise({redirectTo: '/home'});
 }]);
 
 app.run(function($rootScope, $location) {

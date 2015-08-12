@@ -2,18 +2,22 @@
 
 function UserService ($rootScope, $location, $http) {
     'use strict';
-
+    var loggedInUser;
     function loginUser(username, password) {
             var passwordEncrypted = encryptPassword(password);
             var credentials = {};
             credentials.username = username;
             credentials.password = passwordEncrypted;
-            $http.post(settings.location.login, credentials).then(function(response) {
+            return $http.post(settings.location.login, credentials).then(function(response) {
+                console.log(response);
+                loggedInUser = response.data;
                 $rootScope.loggedIn = true;
-                $location.path("/view1");
+                return response;
             }, function(error, response) {
                 $rootScope.loggedIn = false;
+                loggedInUser = null;
                 console.log(error);
+                return error;
             });
     }
 

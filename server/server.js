@@ -28,7 +28,7 @@ app.use(expressValidator([]));
 app.use('/app', express.static('app'));
 //app.use(favicon(path.join(__dirname, '../dist/favicon.ico')));
 
-app.use('/api/user/all', ensureAuthenticated);
+//app.use('/api/user/all', ensureAuthenticated);
 
 app.use('/api', apiRouter);
 

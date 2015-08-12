@@ -10,24 +10,30 @@ var passport = require('passport');
 var apiRouter = express.Router();
 //apiRouter.route('/auth/login').post(authorization.httpAuthorizeSubscriber.bind(authorization));
 
-apiRouter.route('/role/all').post(ensureAuthenticated(request, response, function(request, response) {
-    Role.findAll(function(err, data) {
-        handleDAOResponse(request, response, err, data);
+apiRouter.route('/role/all').post(function(request, response) {
+    ensureAuthenticated(request, response, function() {
+        Role.findAll(function(err, data) {
+            handleDAOResponse(request, response, err, data);
+        });
     });
-}));
+});
 
-apiRouter.route('/user/all').post(ensureAuthenticated(request, response, function(request, response) {
-    console.log(request.user);
-    User.findAll(function(err, data) {
-        handleDAOResponse(request, response, err, data);
+apiRouter.route('/user/all').post(function(request, response) {
+    ensureAuthenticated(request, response, function () {
+        console.log(request.user);
+        User.findAll(function (err, data) {
+            handleDAOResponse(request, response, err, data);
+        });
     });
-}));
+});
 
-apiRouter.route('/user/save').post(ensureAuthenticated(request, response, function(request, response) {
-    User.insertUser(request.body, function(err, data) {
-        handleDAOResponse(request, response, err, data);
+apiRouter.route('/user/save').post(function(request, response) {
+    ensureAuthenticated(request, response, function() {
+        User.insertUser(request.body, function (err, data) {
+            handleDAOResponse(request, response, err, data);
+        });
     });
-}));
+});
 
 
 apiRouter.route('/login').post(function(req, res, next) {
