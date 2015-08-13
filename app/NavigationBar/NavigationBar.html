@@ -5,7 +5,6 @@
 
     <div class="navigationBar-right">
         <span class="user-name" ng-show="loggedIn">Logged in as: {{loggedInUser.first_name + ' ' + loggedInUser.last_name}}</span>
-        <button ng-show="loggedIn" ng-click="location.path('/user/create')" class="btn btn-lg">Create User</button>
         <button ng-show="loggedIn" ng-click="location.path('/subject')" class="btn btn-lg">Subject</button>
         <button ng-hide="loggedIn" ng-click="location.path('/login')" class="btn btn-lg">Login</button>
         <button ng-show="loggedIn" ng-click="location.path('/user/list')" class="btn btn-lg">Users</button>
