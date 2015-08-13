@@ -2,13 +2,14 @@
     <div class="navigationBar-left">
         <div class="title">SCHOOL PORTAL</div>
     </div>
+
     <div class="navigationBar-right">
-        <button ng-show="loggedIn" ng-click="location.path('/user/create')" class="btn">Create User</button>
-        <button ng-show="loggedIn" ng-click="location.path('/subject')" class="btn">Subject</button>
-        <button ng-hide="loggedIn" ng-click="location.path('/login')" class="btn">Login</button>
-        <button ng-show="loggedIn" ng-click="location.path('/user/list')" class="btn">Users</button>
+        <span class="user-name" ng-show="loggedIn">Logged in as: {{loggedInUser.first_name + ' ' + loggedInUser.last_name}}</span>
+        <button ng-show="loggedIn" ng-click="location.path('/user/create')" class="btn btn-lg">Create User</button>
+        <button ng-show="loggedIn" ng-click="location.path('/subject')" class="btn btn-lg">Subject</button>
+        <button ng-hide="loggedIn" ng-click="location.path('/login')" class="btn btn-lg">Login</button>
+        <button ng-show="loggedIn" ng-click="location.path('/user/list')" class="btn btn-lg">Users</button>
 
-
-        <button ng-show="loggedIn" ng-click="logout()" class="btn">Logout</button>
+        <button ng-show="loggedIn" ng-click="logout()" class="btn btn-lg">Logout</button>
     </div>
 </div>

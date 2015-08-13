@@ -2,13 +2,14 @@
 
 var settings = {
     location: {
-        login: '/api/login',
         role: {
             all: '/api/role/all'
         },
         user: {
             save: '/api/user/save',
-            all: '/api/user/all'
+            all: '/api/user/all',
+            login: '/api/user/login',
+            logout: '/api/user/logout'
         }
 
     },
