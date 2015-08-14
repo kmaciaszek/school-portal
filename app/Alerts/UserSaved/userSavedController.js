@@ -4,14 +4,9 @@
 function userSavedController ($rootScope, $scope, $modal, $modalInstance) {
     'use strict';
 
-
     $scope.ok = function () {
         $modalInstance.close();
-        window.top.location.reload();
     };
-
-
-
 
 }
 

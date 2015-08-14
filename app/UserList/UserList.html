@@ -3,13 +3,10 @@
         <span class="titleSpan">LIST OF USERS</span>
     </div>
 
-    <div ng-controller="UserListController as ctrl">
-        <table datatable="" align="center" class="dataTables row-border hover" dt-options="ctrl.dtOptions" dt-columns="ctrl.dtColumns">
-        </table>
+    <table datatable="" align="center" class="dataTables row-border hover" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance">
+    </table>
+
+    <div class="btn-div">
+        <button  ng-click="showCreateUser()" class="btn btn-lg">Add User</button>
     </div>
-
-<div class="btn-div">
-    <button  ng-click="modalExample()" class="btn btn-lg">Add User</button>
-</div>
-
 </div>

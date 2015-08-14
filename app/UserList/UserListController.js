@@ -1,26 +1,41 @@
 /* global angular */
 
-function UserListController ($rootScope, $scope, $location, $http, UserService, DTOptionsBuilder, DTColumnBuilder, $modal) {
-    'use strict'
+function UserListController ($q, $rootScope, $scope, $location, $http, UserService, DTOptionsBuilder, DTColumnBuilder, $modal) {
+    'use strict';
+    var self = $scope;
 
-    var vm = this;
-    vm.dtOptions = DTOptionsBuilder.fromFnPromise(UserService.getAllUsers())
-        .withPaginationType('full_numbers');
-    vm.dtColumns = [
+    self.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
+        var defer = $q.defer();
+        defer.resolve(UserService.getAllUsers());
+        return defer.promise;
+    }).withPaginationType('full_numbers');
+    self.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('first_name').withTitle('First name'),
         DTColumnBuilder.newColumn('last_name').withTitle('Last name'),
         DTColumnBuilder.newColumn('email').withTitle('Email')
     ];
 
+    self.reloadData = reloadData;
+    self.dtInstance = {};
 
-    $scope.modalExample = function () {
+    function reloadData() {
+        self.dtInstance.reloadData(reloadCallback, true);
+    }
+
+    function reloadCallback(data) {
+        console.log(data);
+    }
+
+    $scope.showCreateUser = function () {
         $modal.open({
             templateUrl: 'User/createUser.html',
             controller: CreateUserController,
             windowClass: 'app-modal-window',
             size: 'customSize'
-        });
+        }).result.then(function(result) {
+                reloadData();
+            });
     };
 
 
