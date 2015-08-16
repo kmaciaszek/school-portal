@@ -16,7 +16,7 @@ angular.module('myApp.services', []);
 app.config(['$routeProvider', function($routeProvider) {
       $routeProvider
           .when('/home', {
-              templateUrl: 'Home/home.html',
+              templateUrl: 'Home/Home.html',
               controller: 'HomeController'
           })
           .when('/view2', {
@@ -36,7 +36,7 @@ app.config(['$routeProvider', function($routeProvider) {
               controller: 'LogoutController'
           })
           .when('/user/create', {
-              templateUrl: 'User/createUser.html',
+              templateUrl: 'User/CreateUser.html',
               controller: 'CreateUserController'
           })
           .when('/user/list', {

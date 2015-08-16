@@ -1,0 +1,102 @@
+@import '../brand';
+
+.crete_user_form {
+  margin: auto;
+  width: 800px;
+  padding: 40px 60px 80px 60px ;
+  border: 1px solid @mainYellow;
+  border-radius: @radius;
+  background-color: @navbarBackground;
+
+}
+
+.form-control {
+  color: #000000;
+  background-color: lightgray;
+  margin: 10px auto;
+
+}
+.form-control:focus {
+  border: 2px solid @mainYellow;
+  background-color:white;
+  box-shadow: none;
+  outline: none ;
+  background:white;
+}
+.form-control::-webkit-input-placeholder {
+  color: @placeholder;
+
+}
+
+.has-error {
+  .form-control {
+    border: 2px solid @warning;
+  }
+
+}
+
+.warning{
+  margin: 13px 0px 0px 0px;
+  background-color:@warning;
+  border-radius:@radius;
+  padding:10px;
+  color: white;
+}
+
+select:required:invalid {
+  color: @placeholder;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: #000000;
+}
+
+.btn-register {
+
+  width: 150px;
+  display: inline-block;
+  &:hover,
+  &:active  {
+    border: 1px solid transparent !important;
+  }
+}
+.button-div{
+
+margin:20px 0px 0px 90px;
+
+}
+.inner-addon {
+  position: relative;
+}
+
+.inner-addon .glyphicon {
+  position: absolute;
+  margin: 4% 6% 70% 0%;
+  pointer-events: none;
+  font-size: 200%;
+  color: @warning;
+}
+
+.right-addon .glyphicon { right: 0px;}
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.registerChevron{
+margin:0px 0px 0px 500px!important;
+  font-size: 289%!important;
+left: 96%;
+  margin: 12px 0px 0px 0px!important;
+
+}
+
+.modal-dialog{
+  width:802px;
+}
+
+.modal-content {
+  height:0px;
+
+}
