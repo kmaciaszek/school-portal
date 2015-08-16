@@ -1,9 +1,9 @@
 /* global angular */
 
-function UserListController ($q, $rootScope, $scope, $location, $http, UserService, DTOptionsBuilder, DTColumnBuilder, $modal) {
+function UserListController ($q, $rootScope, $scope, $location, $http, UserService, DTOptionsBuilder, DTColumnBuilder, $modal, $timeout) {
     'use strict';
+    $scope.userAddedMessage = false;
     var self = $scope;
-
     self.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
         var defer = $q.defer();
         defer.resolve(UserService.getAllUsers());
@@ -35,7 +35,12 @@ function UserListController ($q, $rootScope, $scope, $location, $http, UserServi
             size: 'customSize'
         }).result.then(function(result) {
                 reloadData();
+                $scope.userAddedMessage = true;
+                $timeout(function () { $scope.userAddedMessage = false; }, 5000);
+
+
             });
+
     };
 
 

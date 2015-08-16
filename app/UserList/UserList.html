@@ -6,7 +6,12 @@
     <table datatable="" align="center" class="dataTables row-border hover" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance">
     </table>
 
+    <div class="messageDivText"  >
+        <span ng-class="{'messageDivTextShow': userAddedMessage}">User has been added successfully!</span>
+    </div>
+
     <div class="btn-div">
+
         <button  ng-click="showCreateUser()" class="btn btn-lg">Add User</button>
     </div>
 </div>
