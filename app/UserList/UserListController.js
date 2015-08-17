@@ -29,7 +29,7 @@ function UserListController ($q, $rootScope, $scope, $location, $http, UserServi
 
     $scope.showCreateUser = function () {
         $modal.open({
-            templateUrl: 'User/createUser.html',
+            templateUrl: 'User/CreateUser.html',
             controller: CreateUserController,
             windowClass: 'app-modal-window',
             size: 'customSize'
