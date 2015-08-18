@@ -15,14 +15,26 @@ body {
   padding: 6px 14px;
 
   &:active,
-  &:hover,
-  &:focus {
+  &:hover
+   {
     color: @navbarBackground;
     text-decoration: none;
     background-color: @mainYellow;
     outline: none;
     border: 1px solid transparent !important;
   }
+&:focus{
+  color: @mainYellow;
+  text-decoration: none;
+  outline: none;
+  border: 1px solid @mainYellow!important;
+ &:hover{
+   color: @navbarBackground;
+
+ }
+
+
+}
 }
 
 .btn-right {
