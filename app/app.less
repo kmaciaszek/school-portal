@@ -15,27 +15,25 @@ body {
   padding: 6px 14px;
 
   &:active,
-  &:hover
-   {
+  &:hover {
     color: @navbarBackground;
     text-decoration: none;
     background-color: @mainYellow;
     outline: none;
     border: 1px solid transparent !important;
   }
-&:focus{
-  color: @mainYellow;
-  text-decoration: none;
-  outline: none;
-  border: 1px solid @mainYellow!important;
- &:hover{
-   color: @navbarBackground;
+  &:focus {
+    color: @mainYellow;
+    text-decoration: none;
+    outline: none;
+    border: 1px solid @mainYellow !important;
+    &:hover {
+      color: @navbarBackground;
 
- }
-
-
+    }
+  }
 }
-}
+
 
 .btn-right {
   float: right;
@@ -168,11 +166,14 @@ table.dataTables {
   color: white !important;
   border: 1px solid transparent;
   border-radius: @radius;
-
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
   color:white!important;
+}
+
+.dataTables_paginate .paginate_button.current, .dataTables_paginate .paginate_button.current:hover {
+ border-radius:@radius;
 }
 /* DATATABLES end */
 .warning{

@@ -1,0 +1,91 @@
+@import '../brand';
+
+.loginForm {
+    margin: 0px auto;
+    width: 450px;
+    padding: 50px 60px 80px 60px;
+    border: 1px solid @mainYellow;
+    border-radius: @radius;
+    background-color: @navbarBackground;
+
+    .login-error {
+        height: 30px;
+        padding: 0px;
+    }
+
+    .textBox {
+        width: 100%;
+        margin: 6px auto;
+        padding: 10px;
+        border-radius: @radius;
+        color: #000000 !important;
+        box-shadow: none;
+        display: block;
+
+    }
+
+    .textBox::-webkit-input-placeholder {
+        color: @placeholder;
+    }
+}
+.loginWarning{
+    background-color:@warning;
+    border-radius:@radius;
+    padding:10px;
+    color: white;
+    text-align: left;
+
+}
+
+
+.wrapper {
+    border: 1px solid transparent;
+    margin: 120px auto;
+    width: 800px;
+    overflow: hidden; /* add this to contain floated children */
+}
+.first {
+
+}
+.second {
+    position:absolute;
+    width:250px;
+    top: 280px;
+    margin: 0px 280px 280px 576px;
+
+
+}
+.secondWrapper{
+    margin-left:auto;
+    margin-right:auto;
+}
+.inner-addonn {
+    position: relative;
+}
+
+
+.inner-addonn .glyphicon {
+    position: absolute;
+    margin: 8px 6px 10px 10px;
+    pointer-events: none;
+    font-size: 200%;
+    color: @warning;
+}
+
+.right-addonn .glyphicon { right: 0px;}
+
+.left-addonn input  { padding-left:  30px; }
+.right-addonn input { padding-right: 30px; }
+
+
+.redWarning {
+    .textBox {
+        border: 2px solid @warning!important;
+    }
+}
+
+
+.chevron{
+    left:315px!important;
+    top:27px!important;
+}
